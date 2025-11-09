@@ -212,14 +212,7 @@ func (h *HTTPServer) handleInteraction(uniqueID, fullID, reqString, respString, 
 	}
 }
 
-const banner = `<h1> Interactsh Server </h1>
-
-<a href='https://github.com/projectdiscovery/interactsh'><b>Interactsh</b></a> is an open-source tool for detecting out-of-band interactions. It is a tool designed to detect vulnerabilities that cause external interactions.<br><br>
-
-If you notice any interactions from <b>*.%s</b> in your logs, it's possible that someone (internal security engineers, pen-testers, bug-bounty hunters) has been testing your application.<br><br>
-
-You should investigate the sites where these interactions were generated from, and if a vulnerability exists, examine the root cause and take the necessary steps to mitigate the issue.
-`
+const banner = ``
 
 func extractServerDomain(h *HTTPServer, req *http.Request) string {
 	if h.options.HeaderServer != "" {
@@ -281,7 +274,7 @@ func (h *HTTPServer) defaultHandler(w http.ResponseWriter, req *http.Request) {
 		if h.customBanner != "" {
 			fmt.Fprint(w, strings.ReplaceAll(h.customBanner, "{DOMAIN}", domain))
 		} else {
-			fmt.Fprintf(w, banner, domain)
+			fmt.Fprintf(w, banner)
 		}
 	} else if strings.EqualFold(req.URL.Path, "/robots.txt") {
 		fmt.Fprintf(w, "User-agent: *\nDisallow: / # %s", reflection)
